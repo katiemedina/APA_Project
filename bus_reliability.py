@@ -36,7 +36,7 @@ buses = mbta[is_buses]
 key_buses = buses[is_key]
 
 #%%
-#MONTHLY TOTALS KEY BUSES
+#MONTHLY TOTALS - KEY BUSES
 #ALL FOLLOWING ANALYSIS IS FOR KEY BUSES; NEED TO DO WITH REGULAR BUS ROUTES
 key_buses['year'] = key_buses['year+month'].dt.year
 
@@ -47,34 +47,30 @@ kgroute_month = key_buses.groupby(['gtfs_route_id','peak_offpeak_ind','year+mont
 kgroute_month_sum = kgroute_month[['otp_numerator','otp_denomi_tor']].sum()
 
 #adds percentage reliability column
-kgroute_month_sum['pct_reliable'] = round((kgroute_month_sum ['otp_numerator']/kgroute_month_sum ['otp_denomi_tor'])*100,2).copy()
+kgroute_month_sum['pct_reliable'] = round((kgroute_month_sum ['otp_numerator']/kgroute_month_sum ['otp_denomi_tor'])*100,2)
 
 #turns multi-index back into columns in dataframe
-test = kgroute_month_sum.reset_index()
+kg_route_month_sum = kgroute_month_sum.reset_index()
 
 #%%
 #group and calculate by year
-test['year'] = test['year+month'].dt.year
+kg_route_month_sum['year'] = kg_route_month_sum['year+month'].dt.year
 
-test_year_peak = test.groupby(['year','peak_offpeak_ind','gtfs_route_id'])
+kg_route_year_peak = kg_route_month_sum.groupby(['year','peak_offpeak_ind','gtfs_route_id'])
 
-test_year_peak_sum = test_year_peak[['otp_numerator','otp_denomi_tor']].sum()
+kg_route_peak_sum = kg_route_year_peak[['otp_numerator','otp_denomi_tor']].sum()
 
-test_year_peak_sum['pct_reliable'] = round((test_year_peak_sum['otp_numerator']/test_year_peak_sum['otp_denomi_tor'])*100,2)
+kg_route_peak_sum['pct_reliable'] = round((kg_route_peak_sum['otp_numerator']/kg_route_peak_sum['otp_denomi_tor'])*100,2)
 
-test_year_peak_sum = test_year_peak_sum.sort_values(['gtfs_route_id','peak_offpeak_ind','year'])
+kg_route_peak_sum = kg_route_peak_sum.sort_values(['gtfs_route_id','peak_offpeak_ind','year'])
 
 #%%
 #2018
-test_year_peak_sum = test_year_peak_sum.reset_index()
+kg_route_peak_sum = kg_route_peak_sum.reset_index()
 
-year2018buses = test_year_peak_sum['year'] == 2018
+year2018buses = kg_route_peak_sum['year'] == 2018
 
-reliability2018 = test_year_peak_sum[year2018buses]
-#look at offpeak
-is_peak = reliability2018['peak_offpeak_ind'] == 'PEAK'
-
-reliability2018peak = reliability2018[is_peak]
+reliability2018 = kg_route_peak_sum[year2018buses]
 
 #%%
 
