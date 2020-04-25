@@ -72,6 +72,8 @@ year2018buses = kg_route_peak_sum['year'] == 2018
 
 reliability2018 = kg_route_peak_sum[year2018buses]
 
+g_reliability2018 = reliability2018.groupby(['year','gtfs_route_id'])
+
 #%%
 
 ax = sns.barplot(x = 'gtfs_route_id', y = 'pct_reliable', data = reliability2018, hue = 'peak_offpeak_ind')
