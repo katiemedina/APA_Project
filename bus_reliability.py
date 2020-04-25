@@ -6,7 +6,7 @@ Created on Thu Apr 23 23:58:26 2020
 """
 
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import seaborn as sns
 
 #%%
@@ -72,9 +72,27 @@ year2018buses = g_route_peak_sum['year'] == 2018
 
 reliability2018 = g_route_peak_sum[year2018buses]
 
-#%%
+is_peak = reliability2018['peak_offpeak_ind'] == 'PEAK'
 
-ax = sns.barplot(x = 'gtfs_route_id', y = 'pct_reliable', data = reliability2018, hue = 'peak_offpeak_ind')
+peak_reliability2018 = reliability2018[is_peak]
+
+worst_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[0:10]
+
+best_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[-10:]
+
+#%%
+sns.set(style='white')
+plt.subplot(2,1,1)
+fg = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=worst_peak_reliability2018)
+
+plt.subplot(2,1,2)
+sns.barplot(y='pct_reliable', x='gtfs_route_id',data=best_peak_reliability2018)
+
+plt.savefig('stack_reliable.png')
+
+#plt.savefig('cost_per_watt-boxen.png')
+
+#ax = sns.barplot(x = 'gtfs_route_id', y = 'pct_reliable', data = reliability2018, hue = 'peak_offpeak_ind')
 
 #%%
 #MONTHLY TOTALS - KEY BUSES
