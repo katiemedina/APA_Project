@@ -81,12 +81,18 @@ worst_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[
 best_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[-10:]
 
 #%%
-sns.set(style='white')
+plt.subplots_adjust(hspace = 0.45)
+sns.set(style='whitegrid')
 plt.subplot(2,1,1)
-fg = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=worst_peak_reliability2018)
+fg1 = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=worst_peak_reliability2018, color = 'salmon')
+fg1.set_ylim([0,100])
+fg1.set_title("Worst Reliability")
+
 
 plt.subplot(2,1,2)
-sns.barplot(y='pct_reliable', x='gtfs_route_id',data=best_peak_reliability2018)
+fg2 = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=best_peak_reliability2018, color = 'green')
+fg2.set_ylim([0,100])
+fg2.set_title("Best Reliability")
 
 plt.savefig('stack_reliable.png')
 
