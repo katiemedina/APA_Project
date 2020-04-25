@@ -36,6 +36,47 @@ buses = mbta[is_buses]
 key_buses = buses[is_key]
 
 #%%
+#MONTHLY TOTALS - ALL BUSES
+#ALL FOLLOWING ANALYSIS IS FOR KEY BUSES; NEED TO DO WITH REGULAR BUS ROUTES
+buses['year'] = buses['year+month'].dt.year
+
+#group by route, peak or off peak, and year+month
+groute_month = buses.groupby(['gtfs_route_id','peak_offpeak_ind','year+month'])
+
+#apply sum to columns after grouped by object is created
+groute_month_sum = groute_month[['otp_numerator','otp_denomi_tor']].sum()
+
+#adds percentage reliability column
+groute_month_sum['pct_reliable'] = round((groute_month_sum ['otp_numerator']/groute_month_sum ['otp_denomi_tor'])*100,2)
+
+#turns multi-index back into columns in dataframe
+g_route_month_sum = groute_month_sum.reset_index()
+
+#%%
+#group and calculate by year
+g_route_month_sum['year'] = g_route_month_sum['year+month'].dt.year
+
+g_route_year_peak = g_route_month_sum.groupby(['year','peak_offpeak_ind','gtfs_route_id'])
+
+g_route_peak_sum = g_route_year_peak[['otp_numerator','otp_denomi_tor']].sum()
+
+g_route_peak_sum['pct_reliable'] = round((g_route_peak_sum['otp_numerator']/g_route_peak_sum['otp_denomi_tor'])*100,2)
+
+g_route_peak_sum = g_route_peak_sum.sort_values(['gtfs_route_id','peak_offpeak_ind','year'])
+
+#%%
+#2018
+g_route_peak_sum = g_route_peak_sum.reset_index()
+
+year2018buses = g_route_peak_sum['year'] == 2018
+
+reliability2018 = g_route_peak_sum[year2018buses]
+
+#%%
+
+ax = sns.barplot(x = 'gtfs_route_id', y = 'pct_reliable', data = reliability2018, hue = 'peak_offpeak_ind')
+
+#%%
 #MONTHLY TOTALS - KEY BUSES
 #ALL FOLLOWING ANALYSIS IS FOR KEY BUSES; NEED TO DO WITH REGULAR BUS ROUTES
 key_buses['year'] = key_buses['year+month'].dt.year
@@ -70,10 +111,8 @@ kg_route_peak_sum = kg_route_peak_sum.reset_index()
 
 year2018buses = kg_route_peak_sum['year'] == 2018
 
-reliability2018 = kg_route_peak_sum[year2018buses]
+kreliability2018 = kg_route_peak_sum[year2018buses]
 
-g_reliability2018 = reliability2018.groupby(['year','gtfs_route_id'])
+kg_reliability2018 = kreliability2018.groupby(['year','gtfs_route_id'])
 
-#%%
 
-ax = sns.barplot(x = 'gtfs_route_id', y = 'pct_reliable', data = reliability2018, hue = 'peak_offpeak_ind')
