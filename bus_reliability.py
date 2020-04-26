@@ -162,4 +162,6 @@ plt.savefig('stack_reliable_key.png')
 
 bad_buses = kpeak_reliability2018.append(worst_peak_reliability2018, ignore_index = True)
 
+bad_buses['map_route_id'] = bad_buses['gtfs_route_id'].str.zfill(2)
+
 bad_buses.to_csv('bad_buses.csv')
