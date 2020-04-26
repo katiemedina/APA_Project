@@ -81,28 +81,27 @@ worst_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[
 best_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[-10:]
 
 #%%
+#PLOT BEST AND WORST RELIABLE
+#NEED TO SORT PROPERLY SO DISPLAY LOWEST TO HIGHEST
 plt.subplots_adjust(hspace = 0.45)
 sns.set(style='whitegrid')
 plt.subplot(2,1,1)
-fg1 = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=worst_peak_reliability2018, color = 'salmon')
+fg1 = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=worst_peak_reliability2018, color = 'orange')
 fg1.set_ylim([0,100])
 fg1.set_title("Worst Reliability")
-
+fg1.set(xlabel = 'Route ID', ylabel = 'Percentage On Time')
 
 plt.subplot(2,1,2)
 fg2 = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=best_peak_reliability2018, color = 'green')
-fg2.set_ylim([0,100])
 fg2.set_title("Best Reliability")
-
+fg2.set(xlabel = 'Route ID', ylabel = 'Percentage On Time')
 plt.savefig('stack_reliable.png')
 
-#plt.savefig('cost_per_watt-boxen.png')
 
 #ax = sns.barplot(x = 'gtfs_route_id', y = 'pct_reliable', data = reliability2018, hue = 'peak_offpeak_ind')
 
 #%%
 #MONTHLY TOTALS - KEY BUSES
-#ALL FOLLOWING ANALYSIS IS FOR KEY BUSES; NEED TO DO WITH REGULAR BUS ROUTES
 key_buses['year'] = key_buses['year+month'].dt.year
 
 #group by route, peak or off peak, and year+month
