@@ -161,3 +161,5 @@ plt.savefig('stack_reliable_key.png')
 #COMBINED LIST OF BAD ROUTES
 
 bad_buses = kpeak_reliability2018.append(worst_peak_reliability2018, ignore_index = True)
+
+bad_buses.to_csv('bad_buses.csv')
