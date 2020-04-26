@@ -19,3 +19,6 @@ Group the each subset of routes in the same way: first by route ID, peak or offp
 8. This analysis will look at the year 2018 as that is the most recent year for which bus ridership data is available. Subset the grouped data into just the year 2018.
 
 9. Because this analysis is looking to suggest routes that can benefit from dedicated bus lanes, we will focus on peak reliability because most traffic congestion is likely to occur during peak hours.
+Subset the 2018 data by `peak_offpeak_ind` and keep the peak records.
+
+10.
