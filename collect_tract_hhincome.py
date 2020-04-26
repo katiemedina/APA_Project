@@ -52,12 +52,16 @@ results = pd.DataFrame(columns = colnames, data = datarows)
 
 results['geoid'] = results['state'] + results['county'] + results['tract']
 
-results['pop_int'] = results['B00001_001E']
+results['label'] = results['tract']
 
 results.set_index('geoid', inplace = True)
 
 newnames = {'B20002_001E' : 'median'}
 
+results.replace('-666666666','', inplace = True)
+
 results.rename(newnames, axis = 'columns', inplace = True)
+
+results.to_csv('earn_by_tract.csv')
 
 results.to_csv('earn_by_tract.csv')
