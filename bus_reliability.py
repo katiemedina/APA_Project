@@ -78,6 +78,9 @@ peak_reliability2018 = reliability2018[is_peak]
 
 worst_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[0:10]
 
+list_worst = worst_peak_reliability2018['gtfs_route_id']
+print(list_worst)
+
 best_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[-10:]
 
 #%%
@@ -128,14 +131,32 @@ kg_route_peak_sum['pct_reliable'] = round((kg_route_peak_sum['otp_numerator']/kg
 
 kg_route_peak_sum = kg_route_peak_sum.sort_values(['gtfs_route_id','peak_offpeak_ind','year'])
 
+
 #%%
-#2018
+#2018 KEY ROUTES
 kg_route_peak_sum = kg_route_peak_sum.reset_index()
 
-year2018buses = kg_route_peak_sum['year'] == 2018
+kyear2018buses = kg_route_peak_sum['year'] == 2018
 
 kreliability2018 = kg_route_peak_sum[year2018buses]
 
-kg_reliability2018 = kreliability2018.groupby(['year','gtfs_route_id'])
+kis_peak = kreliability2018['peak_offpeak_ind'] == 'PEAK'
+
+kpeak_reliability2018 = kreliability2018[kis_peak]
+
+kworst_peak_reliability2018 = kpeak_reliability2018.sort_values(['pct_reliable'])[0:5]
+
+klist_worst = kworst_peak_reliability2018['gtfs_route_id']
+print(klist_worst)
 
 
+#%%
+#PLOT KEY ROUTE RELIABILITY
+#NEED TO SORT PROPERLY TO DISPLAY LOWEST TO HIGHEST
+plt.figure()
+sns.set(style='whitegrid')
+fg = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=kpeak_reliability2018, color = 'orange')
+fg.set_ylim([0,100])
+fg.set_title("Reliability of Key Bus Routes")
+fg.set(xlabel = 'Route ID', ylabel = 'Percentage On Time')
+plt.savefig('stack_reliable_key.png')
