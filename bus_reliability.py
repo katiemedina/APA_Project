@@ -31,13 +31,12 @@ is_buses = mbta['mode_type'] == 'Bus'
 
 is_key = mbta['route_category'] == 'Key Bus'
 
-buses = mbta[is_buses]
+buses = mbta[is_buses].copy()
 
-key_buses = buses[is_key]
+key_buses = buses[is_key].copy()
 
 #%%
 #MONTHLY TOTALS - ALL BUSES
-#ALL FOLLOWING ANALYSIS IS FOR KEY BUSES; NEED TO DO WITH REGULAR BUS ROUTES
 buses['year'] = buses['year+month'].dt.year
 
 #group by route, peak or off peak, and year+month
@@ -76,7 +75,7 @@ is_peak = reliability2018['peak_offpeak_ind'] == 'PEAK'
 
 peak_reliability2018 = reliability2018[is_peak]
 
-worst_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[0:10]
+worst_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[0:15]
 
 list_worst = worst_peak_reliability2018['gtfs_route_id']
 print(list_worst)
@@ -99,7 +98,6 @@ fg2 = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=best_peak_reliability
 fg2.set_title("Best Reliability")
 fg2.set(xlabel = 'Route ID', ylabel = 'Percentage On Time')
 plt.savefig('stack_reliable.png')
-
 
 #ax = sns.barplot(x = 'gtfs_route_id', y = 'pct_reliable', data = reliability2018, hue = 'peak_offpeak_ind')
 
@@ -143,12 +141,6 @@ kreliability2018 = kg_route_peak_sum[year2018buses]
 kis_peak = kreliability2018['peak_offpeak_ind'] == 'PEAK'
 
 kpeak_reliability2018 = kreliability2018[kis_peak]
-
-kworst_peak_reliability2018 = kpeak_reliability2018.sort_values(['pct_reliable'])[0:5]
-
-klist_worst = kworst_peak_reliability2018['gtfs_route_id']
-print(klist_worst)
-
 
 #%%
 #PLOT KEY ROUTE RELIABILITY
