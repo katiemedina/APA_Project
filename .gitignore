@@ -1,3 +1,15 @@
 *.zip
 *.csv
 *.gdb
+*.qgz
+*.gpkg
+*.cpg
+*.dbf
+*.prj
+*.sbn
+*.sbx
+*.shp
+*.shx
+*.shp.xml
+*.gpkg-shm
+*.gpkg-wal
