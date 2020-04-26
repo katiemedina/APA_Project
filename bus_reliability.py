@@ -77,6 +77,8 @@ peak_reliability2018 = reliability2018[is_peak]
 
 worst_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[0:15]
 
+worst_peak_reliability2018['route_indicator'] = 'not key'
+
 list_worst = worst_peak_reliability2018['gtfs_route_id']
 print(list_worst)
 
@@ -140,7 +142,9 @@ kreliability2018 = kg_route_peak_sum[year2018buses]
 
 kis_peak = kreliability2018['peak_offpeak_ind'] == 'PEAK'
 
-kpeak_reliability2018 = kreliability2018[kis_peak]
+kpeak_reliability2018 = kreliability2018[kis_peak].copy()
+
+kpeak_reliability2018['route_indicator'] = 'key'
 
 #%%
 #PLOT KEY ROUTE RELIABILITY
@@ -152,3 +156,8 @@ fg.set_ylim([0,100])
 fg.set_title("Reliability of Key Bus Routes")
 fg.set(xlabel = 'Route ID', ylabel = 'Percentage On Time')
 plt.savefig('stack_reliable_key.png')
+
+#%%
+#COMBINED LIST OF BAD ROUTES
+
+bad_buses = kpeak_reliability2018.append(worst_peak_reliability2018, ignore_index = True)
