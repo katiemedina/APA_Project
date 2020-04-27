@@ -8,7 +8,7 @@ Created on Sun Apr 26 20:46:10 2020
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+from matplotlib.pyplot import figure
 #%%
 df = pd.read_csv('rides_and_reliability.csv')
 
@@ -20,6 +20,7 @@ buses = buses.reset_index()
 
 #%%
 #Reliability and Ridership
+plt.figure(figsize=(12,8))
 plt.subplots_adjust(hspace = 0.45)
 sns.set(style='whitegrid')
 
@@ -39,6 +40,7 @@ fg2.set_title('Boardings by Route')
 plt.savefig('Reliability and Boardings by Route.png')
 
 #%%
-buses.plot(x = 'gtfs_route_id', kind= 'bar' , secondary_y= 'boardings' , rot= 0 )
+
+buses.plot(x = 'gtfs_route_id', kind= 'bar' , secondary_y= 'boardings' , rot= 0 , figsize = (12,6))
 plt.savefig('ReliabilityxBoardings.png')
 
