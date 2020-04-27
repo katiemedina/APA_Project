@@ -14,9 +14,16 @@ df = pd.read_csv('rides_and_reliability.csv')
 
 buses = df[['gtfs_route_id', 'pct_reliable', 'boardings', 'route_indicator']]
 
-buses = buses.sort_values(['pct_reliable'], ascending = False)
+buses = buses.sort_values(['pct_reliable'], ascending = True)
 
-buses = buses.reset_index(drop = True)
+buses = buses.reset_index()
+
+#%%
+
+plt.figure()
+sns.set(style = 'whitegrid')
+fig1 = sns.barplot(data = buses, x = 'gtfs_route_id', y = 'pct_reliable')
+
 
 #%%
 #PLOT BEST AND WORST RELIABLE
@@ -33,3 +40,24 @@ plt.subplot(2,1,2)
 fg2 = sns.barplot(x = 'gtfs_route_id', y = 'boardings', data=buses, color = 'green')
 fg2.set_title("Ridership")
 fg2.set(xlabel = 'Route ID', ylabel = 'Typical Boardings')
+
+
+
+#ax = sns.barplot(x = 'gtfs_route_id', y = 'pct_reliable', data = reliability2018, hue = 'peak_offpeak_ind')
+
+#%%
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax2 = ax.twinx()
+
+width = 0.4
+buses.pct_reliable.plot(kind = 'bar', color = 'red', ax = ax, width = width, position = 1)
+buses.boardings.plot(kind = 'bar', color = 'blue', ax = ax2, width = width, position = 0)
+
+plt.show()
+
+#%%
+buses.plot(x = 'gtfs_route_id', kind= 'bar' , secondary_y= 'boardings' , rot= 0 )
+plt.show()
+
