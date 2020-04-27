@@ -39,6 +39,7 @@ fg2.set_title('Boardings by Route')
 plt.savefig('Reliability and Boardings by Route.png')
 
 #%%
+#test = buses[['gtfs_route_id','pct_reliable','boardings']].set_index('gtfs_route_id')
 buses.plot(x = 'gtfs_route_id', kind= 'bar' , secondary_y= 'boardings' , rot= 0 )
 plt.show()
 
