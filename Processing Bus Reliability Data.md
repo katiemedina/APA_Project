@@ -21,4 +21,8 @@ Group the each subset of routes in the same way: first by route ID, peak or offp
 9. Because this analysis is looking to suggest routes that can benefit from dedicated bus lanes, we will focus on peak reliability because most traffic congestion is likely to occur during peak hours.
 Subset the 2018 data by `peak_offpeak_ind` and keep the peak records.
 
-10.
+10. Sort by lowest reliability percentage and store the fifteen worst reliability lines in a separate dataframe. Add a column `route_indicator` of 'key' for key routes and 'not key' for the other routes.
+
+11. Append the key bus route dataframe to the non-key bus routes and save the combined list as a `bad_buses` dataframe.
+
+12. Export the combined dataset to a .csv called 'bad_buses.csv'
