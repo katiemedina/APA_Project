@@ -16,6 +16,6 @@ Instructions for processing the datasets can be found in:
 - Processing Bus Reliability Data with the code in bus_reliability_2018.py
 - Processing Bus Ridership Data with the code in bus_ridership.py
 
-#### Maps
+#### Map
 
-Data collection and processing for the maps can be found in collect_tract_hhincome.py and collect_tract_population.py.
+Data collection and processing for the map can be found in collect_tract_earnings.py.
