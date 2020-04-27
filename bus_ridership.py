@@ -21,20 +21,6 @@ is_2018 = rides['season'] == 'Fall 2018'
 rides18 = rides[is_2018]
 
 #%%
-#BY DIRECTION
-#group_line_rides18 = rides18.groupby(['route_id','direction_id'])
-
-#group_line_rides18_sum = group_line_rides18['boardings'].sum()
-
-#test = group_line_rides18_sum.unstack()
-
-#test = test.reset_index()
-
-#test['approx_annual_0'] = test[0]*52
-
-#test['approx_annual_0'] = test[1]*52
-
-#%%
 #GROUP BY LINE WITHOUT DIRECTION
 glrides18 = rides18.groupby(['route_id'])
 
