@@ -10,7 +10,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 #%%
-buses = pd.read_csv('rides_and_reliability.csv')
+df = pd.read_csv('rides_and_reliability.csv')
+
+buses = df[['gtfs_route_id', 'pct_reliable', 'boardings', 'route_indicator']]
 
 buses = buses.sort_values(['pct_reliable'], ascending = True)
 
@@ -22,12 +24,12 @@ buses = buses.reset_index(drop = True)
 plt.subplots_adjust(hspace = 0.45)
 sns.set(style='whitegrid')
 plt.subplot(2,1,1)
-fg1 = sns.barplot('str_route', 'pct_reliable', data=buses)
+fg1 = sns.barplot(x = 'gtfs_route_id', y = 'pct_reliable', data=buses, color = 'salmon')
 fg1.set_ylim([0,100])
 fg1.set_title("Reliability")
 fg1.set(xlabel = 'Route ID', ylabel = 'Percentage On Time')
 
 plt.subplot(2,1,2)
-fg21 = sns.barplot('str_route', 'boardings', data=buses)
+fg2 = sns.barplot(x = 'gtfs_route_id', y = 'boardings', data=buses, color = 'green')
 fg2.set_title("Ridership")
 fg2.set(xlabel = 'Route ID', ylabel = 'Typical Boardings')
