@@ -73,24 +73,6 @@ best_peak_reliability2018 = peak_reliability2018.sort_values(['pct_reliable'])[-
 
 worst_peak_reliability2018['route_indicator'] = 'not key'
 
-#%%
-#PLOT BEST AND WORST RELIABLE
-#NEED TO SORT PROPERLY SO DISPLAY LOWEST TO HIGHEST
-plt.subplots_adjust(hspace = 0.45)
-sns.set(style='whitegrid')
-plt.subplot(2,1,1)
-fg1 = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=worst_peak_reliability2018, color = 'orange')
-fg1.set_ylim([0,100])
-fg1.set_title("Worst Reliability")
-fg1.set(xlabel = 'Route ID', ylabel = 'Percentage On Time')
-
-plt.subplot(2,1,2)
-fg2 = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=best_peak_reliability2018, color = 'green')
-fg2.set_title("Best Reliability")
-fg2.set(xlabel = 'Route ID', ylabel = 'Percentage On Time')
-plt.savefig('stack_reliable.png')
-
-#ax = sns.barplot(x = 'gtfs_route_id', y = 'pct_reliable', data = reliability2018, hue = 'peak_offpeak_ind')
 
 #%%
 #ANNUAL TOTALS - KEY BUSES
@@ -117,17 +99,6 @@ kis_peak = kreliability2018['peak_offpeak_ind'] == 'PEAK'
 kpeak_reliability2018 = kreliability2018[kis_peak].copy()
 
 kpeak_reliability2018['route_indicator'] = 'key'
-
-#%%
-#PLOT KEY ROUTE RELIABILITY
-#NEED TO SORT PROPERLY TO DISPLAY LOWEST TO HIGHEST
-plt.figure()
-sns.set(style='whitegrid')
-fg = sns.barplot(y='pct_reliable', x='gtfs_route_id',data=kpeak_reliability2018, color = 'orange')
-fg.set_ylim([0,100])
-fg.set_title("Reliability of Key Bus Routes")
-fg.set(xlabel = 'Route ID', ylabel = 'Percentage On Time')
-plt.savefig('stack_reliable_key.png')
 
 #%%
 #COMBINED LIST OF BAD ROUTES
