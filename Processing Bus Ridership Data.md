@@ -11,3 +11,5 @@
 5. Group the data by `route_id` and then sum `boardings`.
 
 6. Merge the `bad_buses` dataframe with the grouped rides database. Use a left merge and merge on route id. Print the `_merge` indicator to confirm that all records matched.
+
+7. Export the merged dataset as a csv called 'rides_and_reliability.csv'
