@@ -1,6 +1,6 @@
 ### Results
 
-The preliminary results of this analysis were generated with **figures.py** and **earn_by_income.png**.
+The preliminary results of this analysis were generated with **figures.py** and **Routes and Census Tract Earnings.png**.
 
 #### Building the figures
 
