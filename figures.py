@@ -14,7 +14,7 @@ df = pd.read_csv('rides_and_reliability.csv')
 
 buses = df[['gtfs_route_id', 'pct_reliable', 'boardings', 'route_indicator']]
 
-buses = buses.sort_values(['pct_reliable'], ascending = True)
+buses = buses.sort_values(['pct_reliable'], ascending = False)
 
 buses = buses.reset_index(drop = True)
 
