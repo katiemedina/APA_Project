@@ -13,5 +13,9 @@ The second is **MBTA Bus Ridership by Trip, Season, Route/Line, and Stop** which
 #### Data Processing
 
 Instructions for processing the datasets can be found in:
-- Processing Bus Reliability Data
-- Processing Bus Ridership Data
+- Processing Bus Reliability Data with the code in bus_reliability_2018.py
+- Processing Bus Ridership Data with the code in bus_ridership.py
+
+#### Maps
+
+Data collection and processing for the maps can be found in collect_tract_hhincome.py and collect_tract_population.py.
